@@ -1,0 +1,12 @@
+services:
+  aceest-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: aceest-app
+
+    ports:
+      - "6080:6080"
+
+    restart: unless-stopped
