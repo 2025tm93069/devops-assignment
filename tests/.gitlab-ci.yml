@@ -1,0 +1,49 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  IMAGE_NAME: "aceest-fitness-gym"
+
+# -------------------------
+# Stage 1: Unit Testing
+# -------------------------
+unit_tests:
+  stage: test
+  image: python:3.12
+
+  before_script:
+    - python --version
+    - python -m pip install --upgrade pip
+    - python -m pip install -r requirements.txt
+
+  script:
+    - python -m pytest -v
+
+# -------------------------
+# Stage 2: Docker Build
+# -------------------------
+docker_build:
+  stage: build
+
+  script:
+    - docker build -t $IMAGE_NAME:$CI_COMMIT_SHORT_SHA .
+
+  needs:
+    - unit_tests
+
+# -------------------------
+# Stage 3: Deployment
+# -------------------------
+deploy:
+  stage: deploy
+
+  script:
+    - docker compose up -d --build
+
+  needs:
+    - docker_build
+
+  only:
+    - main
