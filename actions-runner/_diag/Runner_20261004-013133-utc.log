@@ -1,0 +1,83 @@
+[2026-10-04 01:31:33Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.credentials'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'Runner': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.runner'
+[2026-10-04 01:31:33Z INFO Listener] Runner is built for Windows (X64) - win-x64.
+[2026-10-04 01:31:33Z INFO Listener] RuntimeInformation: Microsoft Windows 10.0.26200.
+[2026-10-04 01:31:33Z INFO Listener] Version: 2.337.0
+[2026-10-04 01:31:33Z INFO Listener] Commit: 397b032cbf865e9c3ddfab89d533ec19325e1273
+[2026-10-04 01:31:33Z INFO Listener] Culture: en-IN
+[2026-10-04 01:31:33Z INFO Listener] UI Culture: en-US
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO Listener] Validating directory permissions for: 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO CommandLineParser] Parse
+[2026-10-04 01:31:33Z INFO CommandLineParser] Parsing 1 args
+[2026-10-04 01:31:33Z INFO CommandLineParser] parsing argument
+[2026-10-04 01:31:33Z INFO CommandLineParser] HasArgs: False
+[2026-10-04 01:31:33Z INFO CommandLineParser] Adding Command: run
+[2026-10-04 01:31:33Z INFO Listener] Arguments parsed
+[2026-10-04 01:31:33Z INFO Runner] ExecuteCommand
+[2026-10-04 01:31:33Z INFO ConfigurationStore] currentAssemblyLocation: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin\Runner.Listener.dll
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] binPath: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] RootFolder: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'Runner': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.runner'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] ConfigFilePath: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.runner
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'MigratedRunner': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.runner_migrated'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] MigratedConfigFilePath: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.runner_migrated
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.credentials'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] CredFilePath: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.credentials
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'MigratedCredentials': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.credentials_migrated'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] MigratedCredFilePath: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.credentials_migrated
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known config file 'Service': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.service'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] ServiceConfigFilePath: C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.service
+[2026-10-04 01:31:33Z INFO CommandSettings] Flag 'help': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Flag 'version': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Flag 'commit': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Flag 'check': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Command 'configure': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Command 'remove': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Command 'warmup': 'False'
+[2026-10-04 01:31:33Z INFO ConfigurationManager] LoadSettings
+[2026-10-04 01:31:33Z INFO ConfigurationStore] IsConfigured()
+[2026-10-04 01:31:33Z INFO ConfigurationStore] IsConfigured: True
+[2026-10-04 01:31:33Z INFO ConfigurationManager] Is configured: True
+[2026-10-04 01:31:33Z INFO ConfigurationStore] Read setting file: 421 chars
+[2026-10-04 01:31:33Z INFO ConfigurationManager] Settings Loaded
+[2026-10-04 01:31:33Z INFO ConfigurationStore] IsServiceConfigured()
+[2026-10-04 01:31:33Z INFO ConfigurationStore] IsServiceConfigured: False
+[2026-10-04 01:31:33Z INFO CommandSettings] Command 'run': 'True'
+[2026-10-04 01:31:33Z INFO ConfigurationStore] IsConfigured()
+[2026-10-04 01:31:33Z INFO ConfigurationStore] IsConfigured: True
+[2026-10-04 01:31:33Z INFO ConfigurationManager] Is configured: True
+[2026-10-04 01:31:33Z INFO Runner] Could not parse the argument value '' for StartupType. Defaulting to Manual
+[2026-10-04 01:31:33Z INFO Runner] Set runner startup type - Manual
+[2026-10-04 01:31:33Z INFO CommandSettings] Flag 'once': 'False'
+[2026-10-04 01:31:33Z INFO CommandSettings] Flag 'once': 'False'
+[2026-10-04 01:31:33Z INFO Runner] RunAsync
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
+[2026-10-04 01:31:33Z INFO HostContext] Well known directory 'Work': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\run.cmd'
+[2026-10-04 01:31:33Z INFO Runner] Validating directory permissions for: 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\run.cmd'
+[2026-10-04 01:31:33Z ERR  Runner] System.IO.IOException: Cannot create 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\run.cmd' because a file or directory with the same name already exists.
+   at System.IO.FileSystem.CreateDirectory(String fullPath, Byte[] securityDescriptor)
+   at System.IO.Directory.CreateDirectory(String path)
+   at GitHub.Runner.Listener.Runner.RunAsync(RunnerSettings settings, Boolean runOnce, Boolean returnRunOnceJobResult)
+[2026-10-04 01:31:33Z ERR  Terminal] WRITE ERROR: Fail to create and validate runner's work directory 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\run.cmd'.
+[2026-10-04 01:31:33Z INFO Listener] Runner execution has finished with return code 1
