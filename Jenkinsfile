@@ -5,17 +5,25 @@ pipeline {
         timestamps()
     }
 
+    environment {
+        PYTHON = 'C:\\Users\\chella\\AppData\\Local\\Python\\pythoncore-3.12-64\\python.exe'
+    }
+
     stages {
 
         stage('Test') {
             steps {
+                echo 'Checking Python installation...'
+
+                bat '"%PYTHON%" --version'
+
                 echo 'Installing Python dependencies...'
 
-                bat 'python -m pip install -r requirements.txt'
+                bat '"%PYTHON%" -m pip install -r requirements.txt'
 
                 echo 'Running Pytest...'
 
-                bat 'python -m pytest -v'
+                bat '"%PYTHON%" -m pytest -v'
             }
         }
 
