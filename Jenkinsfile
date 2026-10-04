@@ -12,21 +12,12 @@ pipeline {
     }
 
     stages {
-
         stage('Test') {
             steps {
                 echo 'Checking Python installation...'
                 bat '"%PYTHON%" --version'
-
-                echo 'Upgrading pip...'
-                bat '"%PYTHON%" -m pip install --upgrade pip'
-
-                echo 'Installing Python dependencies from requirements.txt...'
+                echo 'Installing Python dependencies...'
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
-
-                echo 'Verifying FPDF installation...'
-                bat '"%PYTHON%" -c "from fpdf import FPDF; print(''FPDF installation OK'')"'
-
                 echo 'Running Pytest...'
                 bat '"%PYTHON%" -m pytest -v'
             }
@@ -36,7 +27,6 @@ pipeline {
             steps {
                 echo 'Checking Docker installation...'
                 bat '"%DOCKER%" --version'
-
                 echo 'Building Docker image...'
                 bat '"%DOCKER%" build -t aceest-fitness-gym:%BUILD_NUMBER% .'
             }
@@ -46,13 +36,10 @@ pipeline {
             steps {
                 echo 'Checking Docker Compose...'
                 bat '"%DOCKER_COMPOSE%" version'
-
                 echo 'Stopping previous ACEest deployment...'
                 bat '"%DOCKER_COMPOSE%" down || exit /b 0'
-
                 echo 'Deploying ACEest Fitness and Gym...'
                 bat '"%DOCKER_COMPOSE%" up -d --build'
-
                 echo 'ACEest Fitness and Gym deployment completed.'
             }
         }
