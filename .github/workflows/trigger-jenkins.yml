@@ -10,23 +10,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Verify Jenkins is running
-        shell: powershell
-        run: |
-          Write-Host "Checking Jenkins at http://localhost:8080..."
-          Invoke-WebRequest `
-            -Uri "http://localhost:8080" `
-            -UseBasicParsing
-
-      - name: Trigger Jenkins Pipeline
+      - name: Verify Jenkins authentication
         shell: powershell
         env:
           JENKINS_USER: ${{ secrets.JENKINS_USER }}
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
         run: |
-          $jenkinsUrl = "http://localhost:8080"
-          $jobName = "aceest-app"
-
           $credentials = "${env:JENKINS_USER}:${env:JENKINS_TOKEN}"
           $bytes = [System.Text.Encoding]::ASCII.GetBytes($credentials)
           $base64 = [Convert]::ToBase64String($bytes)
@@ -35,14 +24,41 @@ jobs:
               Authorization = "Basic $base64"
           }
 
+          Write-Host "Checking Jenkins..."
+
+          $response = Invoke-WebRequest `
+              -Uri "http://localhost:8080/api/json" `
+              -Headers $headers `
+              -UseBasicParsing
+
+          Write-Host "Jenkins Status: $($response.StatusCode)"
+
+      - name: Trigger Jenkins Pipeline
+        shell: powershell
+        env:
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+        run: |
+          $credentials = "${env:JENKINS_USER}:${env:JENKINS_TOKEN}"
+          $bytes = [System.Text.Encoding]::ASCII.GetBytes($credentials)
+          $base64 = [Convert]::ToBase64String($bytes)
+
+          $headers = @{
+              Authorization = "Basic $base64"
+          }
+
+          $jenkinsUrl = "http://localhost:8080"
+          $jobName = "aceest-app"
+
           $url = "$jenkinsUrl/job/$jobName/build"
 
           Write-Host "Triggering Jenkins job: $jobName"
 
-          Invoke-WebRequest `
-            -Uri $url `
-            -Method POST `
-            -Headers $headers `
-            -UseBasicParsing
+          $response = Invoke-WebRequest `
+              -Uri $url `
+              -Method POST `
+              -Headers $headers `
+              -UseBasicParsing
 
+          Write-Host "Jenkins response: $($response.StatusCode)"
           Write-Host "Jenkins build triggered successfully."
