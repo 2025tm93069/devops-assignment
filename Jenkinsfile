@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -16,15 +17,12 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Checking Python installation...'
-
                 bat '"%PYTHON%" --version'
 
                 echo 'Installing Python dependencies...'
-
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
 
                 echo 'Running Pytest...'
-
                 bat '"%PYTHON%" -m pytest -v'
             }
         }
@@ -32,11 +30,9 @@ pipeline {
         stage('Docker Build') {
             steps {
                 echo 'Checking Docker installation...'
-
                 bat '"%DOCKER%" --version'
 
                 echo 'Building Docker image...'
-
                 bat '"%DOCKER%" build -t aceest-fitness-gym:%BUILD_NUMBER% .'
             }
         }
@@ -44,11 +40,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Checking Docker Compose...'
-
                 bat '"%DOCKER_COMPOSE%" version'
 
-                echo 'Deploying ACEest Fitness and Gym...'
+                echo 'Removing previous ACEest container if it exists...'
+                bat 'docker rm -f aceest-app-aceest-app-1 2>NUL || exit /b 0'
 
+                echo 'Deploying ACEest Fitness and Gym...'
                 bat '"%DOCKER_COMPOSE%" up -d --build'
 
                 echo 'ACEest Fitness and Gym deployment completed.'
@@ -62,11 +59,4 @@ pipeline {
         }
 
         failure {
-            echo 'ACEest Fitness CI/CD pipeline failed. Check the console output.'
-        }
-
-        always {
-            echo 'Jenkins pipeline execution finished.'
-        }
-    }
-}
+            echo 'ACEest Fitness CI/CD pipeline failed. Check the console output
