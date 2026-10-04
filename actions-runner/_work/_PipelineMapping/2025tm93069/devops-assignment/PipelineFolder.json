@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "2025tm93069/devops-assignment",
+  "pipelineDirectory": "devops-assignment",
+  "workspaceDirectory": "devops-assignment\\devops-assignment",
+  "repositories": {
+    "2025tm93069/devops-assignment": {
+      "repositoryPath": "devops-assignment\\devops-assignment",
+      "lastRunOn": "10/04/2026 07:29:28 +05:30"
+    }
+  },
+  "lastRunOn": "10/04/2026 09:54:49 +05:30"
+}

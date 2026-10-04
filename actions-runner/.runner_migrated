@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 23,
+  "agentName": "windows-jenkins-runner",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus24.actions.githubusercontent.com/je6Z9G489BmDuyRYs4elUKGeJpqRRkZnGFdbRMpFP9gKvYNvQP/",
+  "gitHubUrl": "https://github.com/2025tm93069/devops-assignment",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
