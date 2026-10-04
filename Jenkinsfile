@@ -41,8 +41,8 @@ pipeline {
                 echo 'Checking Docker Compose...'
                 bat '"%DOCKER_COMPOSE%" version'
 
-                echo 'Removing previous ACEest container if it exists...'
-                bat '"%DOCKER%" rm -f aceest-app-aceest-app-1 2>NUL || exit /b 0'
+                echo 'Stopping previous ACEest deployment...'
+                bat '"%DOCKER_COMPOSE%" down || exit /b 0'
 
                 echo 'Deploying ACEest Fitness and Gym...'
                 bat '"%DOCKER_COMPOSE%" up -d --build'
