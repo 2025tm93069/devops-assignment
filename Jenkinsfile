@@ -41,11 +41,16 @@ pipeline {
         }
 
         stage('Deploy') {
-        
             steps {
+                echo 'Checking Docker Compose...'
+
+                bat '"%DOCKER%" compose version'
+
                 echo 'Deploying ACEest Fitness and Gym...'
 
                 bat '"%DOCKER%" compose up -d --build'
+
+                echo 'ACEest Fitness and Gym deployment completed.'
             }
         }
     }
