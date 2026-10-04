@@ -8,6 +8,7 @@ pipeline {
     environment {
         PYTHON = 'C:\\Users\\chella\\AppData\\Local\\Python\\pythoncore-3.12-64\\python.exe'
         DOCKER = 'C:\\Users\\chella\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+        DOCKER_COMPOSE = 'C:\\Users\\chella\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe'
     }
 
     stages {
@@ -44,11 +45,11 @@ pipeline {
             steps {
                 echo 'Checking Docker Compose...'
 
-                bat '"%DOCKER%" compose version'
+                bat '"%DOCKER_COMPOSE%" version'
 
                 echo 'Deploying ACEest Fitness and Gym...'
 
-                bat '"%DOCKER%" compose up -d --build'
+                bat '"%DOCKER_COMPOSE%" up -d --build'
 
                 echo 'ACEest Fitness and Gym deployment completed.'
             }
