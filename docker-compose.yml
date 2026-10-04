@@ -1,11 +1,10 @@
+name: aceest
 
 services:
   aceest-app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "6080:6080"
-    environment:
-      - DISPLAY=:99
-    volumes:
-      - .:/app
-    mem_limit: 512m
+    restart: unless-stopped
