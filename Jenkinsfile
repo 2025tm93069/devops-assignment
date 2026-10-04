@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         PYTHON = 'C:\\Users\\chella\\AppData\\Local\\Python\\pythoncore-3.12-64\\python.exe'
+        DOCKER = 'C:\\Users\\chella\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
     }
 
     stages {
@@ -29,9 +30,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
+                echo 'Checking Docker installation...'
+
+                bat '"%DOCKER%" --version'
+
                 echo 'Building Docker image...'
 
-                bat 'docker build -t aceest-fitness-gym:%BUILD_NUMBER% .'
+                bat '"%DOCKER%" build -t aceest-fitness-gym:%BUILD_NUMBER% .'
             }
         }
 
@@ -43,7 +48,7 @@ pipeline {
             steps {
                 echo 'Deploying ACEest Fitness and Gym...'
 
-                bat 'docker compose up -d --build'
+                bat '"%DOCKER%" compose up -d --build'
             }
         }
     }
