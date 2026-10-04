@@ -1,5 +1,5 @@
 ﻿{
-  "agentId": 23,
+  "agentId": 24,
   "agentName": "windows-jenkins-runner",
   "poolId": 1,
   "poolName": "Default",
