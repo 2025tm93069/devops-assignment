@@ -3,7 +3,6 @@ services:
   aceest-app:
     build: .
     ports:
-      - "5900:5900"
       - "6080:6080"
     environment:
       - DISPLAY=:99
