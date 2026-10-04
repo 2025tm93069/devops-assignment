@@ -42,7 +42,7 @@ pipeline {
                 bat '"%DOCKER_COMPOSE%" version'
 
                 echo 'Removing previous ACEest container if it exists...'
-                bat 'docker rm -f aceest-app-aceest-app-1 2>NUL || exit /b 0'
+                bat '"%DOCKER%" rm -f aceest-app-aceest-app-1 2>NUL || exit /b 0'
 
                 echo 'Deploying ACEest Fitness and Gym...'
                 bat '"%DOCKER_COMPOSE%" up -d --build'
@@ -58,4 +58,11 @@ pipeline {
         }
 
         failure {
-            echo 'ACEest Fitness CI/CD pipeline failed. Check the console output
+            echo 'Jenkins pipeline execution failed. Check the console output.'
+        }
+
+        always {
+            echo 'Jenkins pipeline execution finished.'
+        }
+    }
+}
