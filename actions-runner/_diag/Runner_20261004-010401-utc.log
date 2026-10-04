@@ -1,7 +1,0 @@
-[2026-10-04 01:04:01Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
-[2026-10-04 01:04:01Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
-[2026-10-04 01:04:01Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
-[2026-10-04 01:04:01Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.credentials'
-[2026-10-04 01:04:01Z INFO HostContext] Well known directory 'Bin': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\bin'
-[2026-10-04 01:04:01Z INFO HostContext] Well known directory 'Root': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner'
-[2026-10-04 01:04:01Z INFO HostContext] Well known config file 'Runner': 'C:\Users\chella\Desktop\devopsassignment\devops-assignment\actions-runner\.runner'
