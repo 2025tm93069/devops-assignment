@@ -18,6 +18,10 @@ RUN apt-get update && apt-get install -y \
     procps \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Python dependencies
+COPY requirements.txt .
+RUN python -m pip install --no-cache-dir -r requirements.txt
+
 # Copy application files
 COPY app.py .
 COPY start.sh .
