@@ -9,6 +9,7 @@ pipeline {
         PYTHON = 'C:\\Users\\chella\\AppData\\Local\\Python\\pythoncore-3.12-64\\python.exe'
         DOCKER = 'C:\\Users\\chella\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
         DOCKER_COMPOSE = 'C:\\Users\\chella\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe'
+        JAVA_HOME = 'C:\\Users\\chella\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.12.101-hotspot'
     }
 
     stages {
@@ -27,6 +28,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo 'Starting SonarQube code analysis...'
+                bat '"%JAVA_HOME%\\bin\\java.exe" -version'
 
                 script {
                     def scannerHome = tool 'SonarScanner'
