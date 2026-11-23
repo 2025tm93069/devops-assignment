@@ -23,6 +23,23 @@ pipeline {
             }
         }
 
+        // SONARQUBE CODE ANALYSIS + QUALITY GATE
+        stage('SonarQube Analysis') {
+            steps {
+                echo 'Starting SonarQube code analysis...'
+
+                script {
+                    def scannerHome = tool 'SonarScanner'
+
+                    withSonarQubeEnv('SonarQube') {
+                        bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600"
+                    }
+                }
+
+                echo 'SonarQube analysis and Quality Gate completed successfully.'
+            }
+        }
+
         stage('Docker Build') {
             steps {
                 echo 'Checking Docker installation...'
