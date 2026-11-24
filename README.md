@@ -14,6 +14,17 @@ The project uses automated tests to validate the program data and display-update
 
 > **Note:** The application uses Tkinter, so it is a desktop GUI rather than a Flask/web application. Docker runs the GUI in a virtual X display and makes it viewable through noVNC in a browser.
 
+## CI/CD Architecture
+
+<p align="center">
+  <img src="./docs/ci-cd-architecture.png" alt="ACEest Fitness and Gym CI/CD architecture" width="100%">
+</p>
+
+<p align="center">
+  <em>Push to main → GitHub Actions → Jenkins quality gates and image build → Docker Compose blue-green or rolling deployment.</em><br>
+  <a href="./docs/ci-cd-architecture.drawio">Open the editable Draw.io diagram</a>
+</p>
+
 ## Technology Stack
 
 - Python 3.12
@@ -43,6 +54,9 @@ devops-assignment/
 │           ├── blue.conf
 │           ├── green.conf
 │           └── both.conf
+├── docs/
+│   ├── ci-cd-architecture.drawio
+│   └── ci-cd-architecture.png
 ├── tests/
 │   ├── test_app.py
 │   └── test_deploy.py

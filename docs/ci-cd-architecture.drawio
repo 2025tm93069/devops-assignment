@@ -1,0 +1,136 @@
+<mxfile host="app.diagrams.net" modified="2026-11-24T12:00:00.000Z" agent="Copilot" version="24.7.17" type="device">
+  <diagram id="aceest-cicd" name="CI-CD Architecture">
+    <mxGraphModel dx="1700" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="ACEest Fitness and Gym | CI/CD Architecture" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#14213D;strokeColor=#14213D;fontColor=#FFFFFF;fontSize=25;fontStyle=1;align=left;spacingLeft=24;" vertex="1" parent="1">
+          <mxGeometry x="25" y="20" width="1650" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="github-boundary" value="GitHub | Source and Trigger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F8FF;strokeColor=#4A78B8;strokeWidth=2;dashed=1;fontColor=#17365D;fontSize=17;fontStyle=1;align=left;verticalAlign=top;spacingLeft=16;spacingTop=14;" vertex="1" parent="1">
+          <mxGeometry x="30" y="125" width="330" height="430" as="geometry"/>
+        </mxCell>
+        <mxCell id="host-boundary" value="Windows DevOps Host" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#718096;strokeWidth=2;dashed=1;fontColor=#243247;fontSize=17;fontStyle=1;align=left;verticalAlign=top;spacingLeft=16;spacingTop=14;" vertex="1" parent="1">
+          <mxGeometry x="390" y="125" width="1020" height="790" as="geometry"/>
+        </mxCell>
+        <mxCell id="docker-boundary" value="Docker Compose project: aceest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7FF;strokeColor=#2780C2;strokeWidth=2;dashed=1;fontColor=#145078;fontSize=16;fontStyle=1;align=left;verticalAlign=top;spacingLeft=16;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="620" width="960" height="275" as="geometry"/>
+        </mxCell>
+        <mxCell id="developer" value="&lt;b&gt;Developer&lt;/b&gt;&lt;br&gt;Pushes changes to main" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#333333;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="55" y="195" width="125" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="repo" value="&lt;b&gt;GitHub Repository&lt;/b&gt;&lt;br&gt;main branch&lt;br&gt;Jenkinsfile + app source" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#4A78B8;fontColor=#17365D;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="215" y="185" width="125" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="actions" value="&lt;b&gt;GitHub Actions&lt;/b&gt;&lt;br&gt;On push to main&lt;br&gt;Self-hosted Windows runner&lt;br&gt;Jenkins credentials from secrets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8DFFF;strokeColor=#8865B3;fontColor=#38265A;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="95" y="370" width="205" height="125" as="geometry"/>
+        </mxCell>
+        <mxCell id="runner" value="&lt;b&gt;Self-hosted Runner&lt;/b&gt;&lt;br&gt;Windows x64&lt;br&gt;Calls Jenkins API&lt;br&gt;localhost:8080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#333333;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="430" y="200" width="175" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="jenkins" value="&lt;b&gt;Jenkins Controller&lt;/b&gt;&lt;br&gt;Pipeline job: aceest-app&lt;br&gt;Receives authenticated build trigger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#4A78B8;fontColor=#17365D;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="430" y="350" width="175" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sonar-server" value="&lt;b&gt;SonarQube Server&lt;/b&gt;&lt;br&gt;localhost:9000&lt;br&gt;Quality Gate result" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E5FF;strokeColor=#8865B3;fontColor=#38265A;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="430" y="485" width="175" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pipeline-boundary" value="Jenkins Pipeline | Stages run in order; test or Quality Gate failure blocks deployment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#4A78B8;strokeWidth=2;fontColor=#17365D;fontSize=15;fontStyle=1;align=left;verticalAlign=top;spacingLeft=14;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="635" y="155" width="745" height="355" as="geometry"/>
+        </mxCell>
+        <mxCell id="test-stage" value="&lt;b&gt;1 | Test + Coverage&lt;/b&gt;&lt;br&gt;Python 3.12&lt;br&gt;Pytest + pytest-cov&lt;br&gt;coverage.xml" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2F0D9;strokeColor=#70AD47;fontColor=#284A16;fontSize=13;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="655" y="235" width="155" height="125" as="geometry"/>
+        </mxCell>
+        <mxCell id="sonar-stage" value="&lt;b&gt;2 | SonarQube&lt;/b&gt;&lt;br&gt;SonarScanner analysis&lt;br&gt;Quality Gate must pass" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E5FF;strokeColor=#8865B3;fontColor=#38265A;fontSize=13;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="830" y="235" width="155" height="125" as="geometry"/>
+        </mxCell>
+        <mxCell id="build-stage" value="&lt;b&gt;3 | Docker Build&lt;/b&gt;&lt;br&gt;Build app image&lt;br&gt;Tag: BUILD_NUMBER" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DDEBF7;strokeColor=#5B9BD5;fontColor=#17365D;fontSize=13;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1005" y="235" width="155" height="125" as="geometry"/>
+        </mxCell>
+        <mxCell id="deploy-stage" value="&lt;b&gt;4 | Deploy&lt;/b&gt;&lt;br&gt;Blue-Green or Rolling&lt;br&gt;Health-gated traffic update" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4D6;strokeColor=#ED7D31;fontColor=#7C3A10;fontSize=13;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="235" width="175" height="125" as="geometry"/>
+        </mxCell>
+        <mxCell id="docker-build-note" value="Docker image built on the Windows Docker Desktop host; Compose reuses the versioned image." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#A6B4C4;fontColor=#344054;fontSize=12;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="880" y="400" width="430" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="compose-blue" value="&lt;b&gt;aceest-blue&lt;/b&gt;&lt;br&gt;Tkinter app&lt;br&gt;Xvfb + noVNC&lt;br&gt;Health check :6080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DDEBF7;strokeColor=#5B9BD5;fontColor=#17365D;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="515" y="675" width="190" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="compose-green" value="&lt;b&gt;aceest-green&lt;/b&gt;&lt;br&gt;Tkinter app&lt;br&gt;Xvfb + noVNC&lt;br&gt;Health check :6080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2F0D9;strokeColor=#70AD47;fontColor=#284A16;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="770" y="675" width="190" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="proxy" value="&lt;b&gt;Nginx Proxy&lt;/b&gt;&lt;br&gt;Unprivileged UID 101&lt;br&gt;Host port 6080&lt;br&gt;WebSocket forwarding" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8DFFF;strokeColor=#8865B3;fontColor=#38265A;fontSize=13;spacing=7;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="680" width="220" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="strategy-note" value="&lt;b&gt;Blue-Green:&lt;/b&gt; deploy inactive slot → health check → switch Nginx upstream; retain previous slot.&lt;br&gt;&lt;b&gt;Rolling:&lt;/b&gt; route across both slots → update one container at a time → health check." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E8;strokeColor=#D6B656;fontColor=#5C4B13;fontSize=11;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="515" y="805" width="785" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="browser" value="&lt;b&gt;Fitness User&lt;/b&gt;&lt;br&gt;Web browser&lt;br&gt;http://localhost:6080/&lt;br&gt;vnc.html" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2F0D9;strokeColor=#70AD47;fontColor=#284A16;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="445" width="185" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-dev-repo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#4A78B8;strokeWidth=2;" edge="1" parent="1" source="developer" target="repo">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-repo-actions" value="push to main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#4A78B8;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="repo" target="actions">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-actions-runner" value="self-hosted job" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#8865B3;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="actions" target="runner">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="375" y="432"/>
+              <mxPoint x="375" y="247"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-runner-jenkins" value="POST :8080" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#D6B656;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="runner" target="jenkins">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-jenkins-test" value="starts pipeline" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#4A78B8;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="jenkins" target="test-stage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="400"/>
+              <mxPoint x="620" y="297"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-test-sonar" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#70AD47;strokeWidth=2;" edge="1" parent="1" source="test-stage" target="sonar-stage">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-sonar-build" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#8865B3;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="sonar-stage" target="build-stage">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-build-deploy" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#5B9BD5;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="build-stage" target="deploy-stage">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-sonar-server" value="analysis + Quality Gate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#8865B3;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="sonar-stage" target="sonar-server">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="907" y="535"/>
+              <mxPoint x="605" y="535"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-deploy-compose" value="Docker Compose" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#ED7D31;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="deploy-stage" target="docker-boundary">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1267" y="555"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-proxy-blue" value="active / rolling" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#5B9BD5;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="proxy" target="compose-blue">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-proxy-green" value="active / rolling" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#70AD47;strokeWidth=2;fontSize=10;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="proxy" target="compose-green">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-browser-proxy" value="HTTP + WebSocket :6080" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2780C2;strokeWidth=2;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="browser" target="proxy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1445" y="502"/>
+              <mxPoint x="1445" y="730"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
