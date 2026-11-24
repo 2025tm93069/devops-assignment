@@ -21,7 +21,7 @@ x11vnc \
     -shared \
     -rfbport 5900 \
     -nopw \
-    -bg -no6 -novnc-nohttp
+    -bg -no6
 
 sleep 2
 

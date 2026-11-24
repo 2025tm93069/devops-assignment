@@ -27,7 +27,8 @@ COPY app.py .
 COPY start.sh .
 
 # Make startup script executable
-RUN chmod +x start.sh
+RUN python -c "from pathlib import Path; p = Path('start.sh'); p.write_bytes(p.read_bytes().replace(bytes((13, 10)), bytes((10,))))" \
+    && chmod +x start.sh
 
 # Environment configuration
 ENV PYTHONDONTWRITEBYTECODE=1 \

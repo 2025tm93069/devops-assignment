@@ -77,7 +77,9 @@ def blue_green_target(configuration):
 
 
 def container_exists(name):
-    return docker("inspect", name, check=False).returncode == 0
+    return (
+        docker("inspect", name, check=False, capture_output=True).returncode == 0
+    )
 
 
 def container_running(name):
@@ -180,7 +182,9 @@ def apply_upstream(configuration_name):
 
 
 def start_proxy(image):
-    compose("up", "-d", "--no-deps", "aceest-proxy", image=image)
+    compose(
+        "up", "-d", "--no-deps", "--remove-orphans", "aceest-proxy", image=image
+    )
     docker("exec", PROXY, "nginx", "-t")
 
 
@@ -209,19 +213,27 @@ def deploy_blue_green(image):
 
 
 def deploy_rolling(image):
-    if container_exists(PROXY) and not container_running(PROXY):
+    proxy_exists = container_exists(PROXY)
+    if proxy_exists and not container_running(PROXY):
         raise RuntimeError(
             "The ACEest proxy container exists but is stopped. Start or restore it "
             "before deploying."
         )
+    if not proxy_exists:
+        print("No existing proxy; creating both slots before enabling traffic.")
+        for color in COLORS:
+            start_app(color, image)
+        start_proxy(image)
+        apply_upstream("both.conf")
+        return
+
     existing = [
         color for color in COLORS if container_exists(f"aceest-{color}")
     ]
     if not existing:
-        print("No existing deployment; creating both slots before enabling traffic.")
+        print("No app slots found; creating both before enabling traffic.")
         for color in COLORS:
             start_app(color, image)
-        start_proxy(image)
         apply_upstream("both.conf")
         return
 
@@ -230,9 +242,6 @@ def deploy_rolling(image):
         if not container_exists(f"aceest-{color}"):
             print(f"Starting the missing {color} slot on the currently deployed image.")
             start_app(color, baseline_image)
-
-    if not container_exists(PROXY):
-        start_proxy(image)
 
     apply_upstream("both.conf")
     for color in COLORS:

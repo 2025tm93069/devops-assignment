@@ -130,7 +130,9 @@ def test_container_exists_inspects_exact_name(returncode, expected, monkeypatch)
     monkeypatch.setattr(deploy, "docker", docker)
 
     assert deploy.container_exists("aceest-proxy") is expected
-    docker.assert_called_once_with("inspect", "aceest-proxy", check=False)
+    docker.assert_called_once_with(
+        "inspect", "aceest-proxy", check=False, capture_output=True
+    )
 
 
 @pytest.mark.parametrize(
@@ -294,7 +296,12 @@ def test_start_proxy_starts_compose_service_and_validates(monkeypatch):
     deploy.start_proxy("aceest-fitness-gym:12")
 
     compose.assert_called_once_with(
-        "up", "-d", "--no-deps", "aceest-proxy", image="aceest-fitness-gym:12"
+        "up",
+        "-d",
+        "--no-deps",
+        "--remove-orphans",
+        "aceest-proxy",
+        image="aceest-fitness-gym:12",
     )
     docker.assert_called_once_with("exec", deploy.PROXY, "nginx", "-t")
 
@@ -388,8 +395,54 @@ def test_rolling_first_deployment_creates_both_slots(monkeypatch):
     apply_upstream.assert_called_once_with("both.conf")
 
 
-def test_rolling_update_adds_missing_slot_and_updates_each(monkeypatch):
+def test_rolling_recovery_replaces_partial_slots_when_proxy_is_missing(monkeypatch):
     existing_names = {"aceest-blue"}
+    monkeypatch.setattr(
+        deploy,
+        "container_exists",
+        lambda name: name in existing_names,
+    )
+    start_app = Mock()
+    start_proxy = Mock()
+    apply_upstream = Mock()
+    monkeypatch.setattr(deploy, "start_app", start_app)
+    monkeypatch.setattr(deploy, "start_proxy", start_proxy)
+    monkeypatch.setattr(deploy, "apply_upstream", apply_upstream)
+
+    deploy.deploy_rolling("aceest-fitness-gym:12")
+
+    assert start_app.call_args_list == [
+        call("blue", "aceest-fitness-gym:12"),
+        call("green", "aceest-fitness-gym:12"),
+    ]
+    start_proxy.assert_called_once_with("aceest-fitness-gym:12")
+    apply_upstream.assert_called_once_with("both.conf")
+
+
+def test_rolling_initializes_slots_when_proxy_has_no_backends(monkeypatch):
+    monkeypatch.setattr(
+        deploy, "container_exists", lambda name: name == deploy.PROXY
+    )
+    monkeypatch.setattr(deploy, "container_running", lambda name: True)
+    start_app = Mock()
+    start_proxy = Mock()
+    apply_upstream = Mock()
+    monkeypatch.setattr(deploy, "start_app", start_app)
+    monkeypatch.setattr(deploy, "start_proxy", start_proxy)
+    monkeypatch.setattr(deploy, "apply_upstream", apply_upstream)
+
+    deploy.deploy_rolling("aceest-fitness-gym:12")
+
+    assert start_app.call_args_list == [
+        call("blue", "aceest-fitness-gym:12"),
+        call("green", "aceest-fitness-gym:12"),
+    ]
+    start_proxy.assert_not_called()
+    apply_upstream.assert_called_once_with("both.conf")
+
+
+def test_rolling_update_adds_missing_slot_and_updates_each(monkeypatch):
+    existing_names = {"aceest-proxy", "aceest-blue"}
     monkeypatch.setattr(
         deploy,
         "container_exists",
@@ -411,7 +464,7 @@ def test_rolling_update_adds_missing_slot_and_updates_each(monkeypatch):
         call("blue", "aceest-fitness-gym:12"),
         call("green", "aceest-fitness-gym:12"),
     ]
-    start_proxy.assert_called_once_with("aceest-fitness-gym:12")
+    start_proxy.assert_not_called()
     assert apply_upstream.call_count == 3
 
 

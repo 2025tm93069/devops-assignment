@@ -191,7 +191,7 @@ Run **Build Now** to test the pipeline manually and review **Console Output** fo
 
 ### One-time migration from the old Compose deployment
 
-The previous deployment published the app container directly on host port `6080`. The new Nginx proxy needs that port, so the first deployment requires a brief cutover. From the repository directory, stop the old Compose stack and remove its now-obsolete service:
+The previous deployment published the app container directly on host port `6080`. The new Nginx proxy needs that port, so the first deployment requires a brief cutover. The pipeline waits for the new app slot(s) to become healthy, then removes orphaned services in the `aceest` Compose project as it starts the proxy. You can also clean up the old stack manually from the repository directory before the first run:
 
 ```powershell
 docker-compose --project-name aceest down --remove-orphans
