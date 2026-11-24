@@ -34,6 +34,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DISPLAY=:99
 
+HEALTHCHECK --interval=10s --timeout=3s --start-period=30s --retries=6 \
+    CMD python -c "import socket; s=socket.create_connection(('127.0.0.1', 6080), timeout=2); s.close()"
+
 # noVNC web interface
 EXPOSE 6080
 

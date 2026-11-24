@@ -29,13 +29,23 @@ The project uses automated tests to validate the program data and display-update
 ```text
 devops-assignment/
 ├── app.py
-├── tests/
-│   └── test_app.py
 ├── requirements.txt
 ├── Dockerfile
 ├── docker-compose.yml
 ├── start.sh
 ├── Jenkinsfile
+├── deploy.py
+├── deploy/
+│   └── nginx/
+│       ├── Dockerfile
+│       ├── default.conf
+│       └── upstreams/
+│           ├── blue.conf
+│           ├── green.conf
+│           └── both.conf
+├── tests/
+│   ├── test_app.py
+│   └── test_deploy.py
 ├── .gitignore
 └── .github/
     └── workflows/
@@ -159,7 +169,11 @@ The `Jenkinsfile` defines these stages:
 
 1. **Test** — checks Python, installs dependencies, and runs Pytest.
 2. **Docker Build** — builds a versioned image using the Jenkins build number.
-3. **Deploy** — stops the previous Compose deployment and starts the updated application.
+3. **Deploy** — deploys the versioned image using a selectable strategy:
+   - **`blue-green`** (default recommendation) starts the inactive slot, waits for its health check, then switches Nginx traffic to it. The previous slot remains available for rollback.
+   - **`rolling`** routes traffic across both slots and updates one container at a time, waiting for each to become healthy before continuing.
+
+The Compose stack runs two application containers (`aceest-blue` and `aceest-green`) behind an Nginx proxy on port `6080`. Nginx preserves the noVNC WebSocket connection. Select `blue-green` or `rolling` from the Jenkins build parameters before running **Build Now**. Both slots must fit on the Docker host; rolling updates require capacity for two app containers.
 
 ### Jenkins job configuration
 
@@ -174,6 +188,23 @@ Create a Jenkins **Pipeline** job named `aceest-app`, then configure:
 The Jenkins service must be able to access Python, Docker, and `docker-compose.exe`. The paths in the `Jenkinsfile` should match the installation paths on your machine. Docker Desktop must be running and available to the Windows account running Jenkins.
 
 Run **Build Now** to test the pipeline manually and review **Console Output** for each stage.
+
+### One-time migration from the old Compose deployment
+
+The previous deployment published the app container directly on host port `6080`. The new Nginx proxy needs that port, so the first deployment requires a brief cutover. From the repository directory, stop the old Compose stack and remove its now-obsolete service:
+
+```powershell
+docker-compose --project-name aceest down --remove-orphans
+```
+
+Then run the Jenkins job. Later deployments keep the proxy in place and use the selected strategy. The previous image remains in its slot until that slot is reused. To roll back, run `deploy.py` with the previous image tag, for example `python deploy.py --strategy blue-green --image aceest-fitness-gym:12`.
+
+To select a strategy from a local checkout, run `deploy.py` with the image tag after building it:
+
+```powershell
+docker build -t aceest-fitness-gym:local .
+python deploy.py --strategy blue-green --image aceest-fitness-gym:local
+```
 
 ## 6. GitHub Actions → Jenkins Trigger
 
@@ -245,7 +276,7 @@ Jenkins: install dependencies and run Pytest
 Build Docker image
           |
           v
-Deploy with Docker Compose
+Deploy blue-green or rolling through Docker Compose
           |
           v
 Open application at http://localhost:6080/vnc.html

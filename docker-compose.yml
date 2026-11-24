@@ -1,10 +1,35 @@
 name: aceest
 
 services:
-  aceest-app:
+  aceest-blue:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ${APP_IMAGE:-aceest-fitness-gym:latest}
+    container_name: aceest-blue
+    expose:
+      - "6080"
+    restart: unless-stopped
+
+  aceest-green:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${APP_IMAGE:-aceest-fitness-gym:latest}
+    container_name: aceest-green
+    expose:
+      - "6080"
+    restart: unless-stopped
+
+  aceest-proxy:
+    build:
+      context: ./deploy/nginx
+      dockerfile: Dockerfile
+    image: aceest-nginx-proxy:latest
+    container_name: aceest-proxy
     ports:
       - "6080:6080"
+    depends_on:
+      - aceest-blue
+      - aceest-green
     restart: unless-stopped

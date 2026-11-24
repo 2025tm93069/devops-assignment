@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    parameters {
+        choice(
+            name: 'DEPLOYMENT_STRATEGY',
+            choices: ['blue-green', 'rolling'],
+            description: 'Choose how the new Docker image is deployed.'
+        )
+    }
+
     options {
         timestamps()
     }
@@ -53,13 +61,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Checking Docker Compose...'
+                echo "Deploying with the ${params.DEPLOYMENT_STRATEGY} strategy..."
                 bat '"%DOCKER_COMPOSE%" version'
-                echo 'Stopping previous ACEest deployment...'
-                bat '"%DOCKER_COMPOSE%" down || exit /b 0'
-                echo 'Deploying ACEest Fitness and Gym...'
-                bat '"%DOCKER_COMPOSE%" up -d --build'
-                echo 'ACEest Fitness and Gym deployment completed.'
+                bat '"%PYTHON%" deploy.py --strategy "%DEPLOYMENT_STRATEGY%" --image "aceest-fitness-gym:%BUILD_NUMBER%"'
             }
         }
     }
