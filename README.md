@@ -173,7 +173,7 @@ The `Jenkinsfile` defines these stages:
    - **`blue-green`** (default recommendation) starts the inactive slot, waits for its health check, then switches Nginx traffic to it. The previous slot remains available for rollback.
    - **`rolling`** routes traffic across both slots and updates one container at a time, waiting for each to become healthy before continuing.
 
-The Compose stack runs two application containers (`aceest-blue` and `aceest-green`) behind an Nginx proxy on port `6080`. Nginx preserves the noVNC WebSocket connection. Select `blue-green` or `rolling` from the Jenkins build parameters before running **Build Now**. Both slots must fit on the Docker host; rolling updates require capacity for two app containers.
+The Compose stack runs two application containers (`aceest-blue` and `aceest-green`) behind an unprivileged Nginx proxy on port `6080`. Nginx preserves the noVNC WebSocket connection and runs as UID 101 rather than root. Select `blue-green` or `rolling` from the Jenkins build parameters before running **Build Now**. Both slots must fit on the Docker host; rolling updates require capacity for two app containers.
 
 ### Jenkins job configuration
 
