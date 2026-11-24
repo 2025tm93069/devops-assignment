@@ -109,10 +109,10 @@ The Tkinter application window should open on the desktop. Select a fitness prog
 From the project root, run:
 
 ```powershell
-python -m pytest -v
+python -m pytest --cov=. --cov-report=xml:coverage.xml -v
 ```
 
-The tests cover the available program configuration, workout and diet data, color configuration, and the `update_display()` logic. The tests are designed to test the application logic without opening the actual Tkinter window.
+The tests cover the application logic and deployment strategy orchestration without opening the Tkinter window or starting Docker containers. The command also writes `coverage.xml`, which SonarQube imports to calculate coverage on new code.
 
 ## 4. Run with Docker Compose
 

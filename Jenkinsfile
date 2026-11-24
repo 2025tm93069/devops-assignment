@@ -27,8 +27,8 @@ pipeline {
                 bat '"%PYTHON%" --version'
                 echo 'Installing Python dependencies...'
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
-                echo 'Running Pytest...'
-                bat '"%PYTHON%" -m pytest -v'
+                echo 'Running Pytest and generating the SonarQube coverage report...'
+                bat '"%PYTHON%" -m pytest --cov=. --cov-report=xml:coverage.xml -v'
             }
         }
 

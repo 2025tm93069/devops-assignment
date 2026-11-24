@@ -76,8 +76,8 @@ def blue_green_target(configuration):
     return "blue"
 
 
-def container_exists(color):
-    return docker("inspect", f"aceest-{color}", check=False).returncode == 0
+def container_exists(name):
+    return docker("inspect", name, check=False).returncode == 0
 
 
 def container_running(name):
@@ -214,7 +214,9 @@ def deploy_rolling(image):
             "The ACEest proxy container exists but is stopped. Start or restore it "
             "before deploying."
         )
-    existing = [color for color in COLORS if container_exists(color)]
+    existing = [
+        color for color in COLORS if container_exists(f"aceest-{color}")
+    ]
     if not existing:
         print("No existing deployment; creating both slots before enabling traffic.")
         for color in COLORS:
@@ -225,7 +227,7 @@ def deploy_rolling(image):
 
     baseline_image = container_image(existing[0])
     for color in COLORS:
-        if not container_exists(color):
+        if not container_exists(f"aceest-{color}"):
             print(f"Starting the missing {color} slot on the currently deployed image.")
             start_app(color, baseline_image)
 
